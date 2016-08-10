@@ -1,0 +1,24 @@
+buildscript {
+    repositories {
+        maven {
+            url uri('../../repo')
+        }
+    }
+    dependencies {
+        classpath 'test.vadim:myplugin:1.0'
+    }
+}
+
+apply plugin: 'test.vadim.gradleplugin'
+
+pluginParameters {
+    parameterOne = 'param nr1 from gradle script'
+    parameterTwo = 'param nr2 from gradle script'
+}
+
+
+
+/*
+task runMyTask(type: test.vadim.gradle.PluginTask) {
+    println("running plugin task...")
+}*/

@@ -7,5 +7,6 @@ public class PluginExtension {
 
     String parameterOne
     String parameterTwo
+    int threads = 10
 
 }

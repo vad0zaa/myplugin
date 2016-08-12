@@ -8,10 +8,27 @@ import org.gradle.api.tasks.TaskAction
  */
 public class PluginTask extends DefaultTask {
 
-    @TaskAction
+   @TaskAction
     public void myTask() {
-        println ' myTask started...'
-        println 'param1 : ${project.pluginParameters.parameterOne}'
-        println 'param2 : ${project.pluginParameters.parameterTwo}'
+
+        Date startDate = new Date();
+
+        println ' myTask  started...'
+        println 'start date : ' + startDate.toString()
+/*
+        println 'param1 : ' + project.pluginParameters.parameterOne
+        println 'param2 : ' + project.pluginParameters.parameterTwo
+        println 'param threads : ' + project.pluginParameters.threads*/
+
+        // do some work here
+        try{
+            Thread.sleep(2000)
+        }
+        catch (Exception e){}
+
+        Date finishDate = new Date();
+        println 'finish date : ' + finishDate.toString()
+        println ' myTask  finished...'
+
     }
 }

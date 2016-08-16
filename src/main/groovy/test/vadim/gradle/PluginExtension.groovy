@@ -5,8 +5,9 @@ package test.vadim.gradle
  */
 public class PluginExtension {
 
-    String parameterOne
-    String parameterTwo
-    int threads = 10
+    // default parameters
+
+    String glue = 'default'
+    int threads = 1
 
 }

@@ -1,5 +1,6 @@
 package test.vadim.gradle
 
+import groovyx.gpars.GParsPool
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
@@ -9,26 +10,38 @@ import org.gradle.api.tasks.TaskAction
 public class PluginTask extends DefaultTask {
 
    @TaskAction
-    public void myTask() {
+    def goAhead() {
 
-        Date startDate = new Date();
+       println '..PluginTask  started...'
+       println '...PluginTask - cify threads : ' + project.cify.threads
 
-        println ' myTask  started...'
-        println 'start date : ' + startDate.toString()
-/*
-        println 'param1 : ' + project.pluginParameters.parameterOne
-        println 'param2 : ' + project.pluginParameters.parameterTwo
-        println 'param threads : ' + project.pluginParameters.threads*/
+       // create features list
+       List features = []
+       for(def i=0 ; i < project.cify.threads ; i++) {
+           features.add('featureNr_' + i)
+       }
 
-        // do some work here
-        try{
-            Thread.sleep(2000)
-        }
-        catch (Exception e){}
+       // create taskpool
+       List tasksPool = []
+       features.each { String feature ->
+           project.task(feature, type: FinalTask){
+                taskName = feature
+           }
+           tasksPool.add(project.tasks[feature])
+       }
 
-        Date finishDate = new Date();
-        println 'finish date : ' + finishDate.toString()
-        println ' myTask  finished...'
+       // run tasks in parallel
+       GParsPool.withPool( project.cify.threads ) {
+           tasksPool.eachParallel { FinalTask task ->
+               try {
+                   println ' GPars - start parallel task '
+                   task.startFinalTaskAction()
+               } catch (all) {
+                   println ('FAILED '+ all)
+               }
+           }
+       }
 
+        println '..PluginTask  finished...'
     }
 }

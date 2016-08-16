@@ -9,35 +9,22 @@ import groovyx.gpars.GParsPool
  */
 public class GradlePlugin implements Plugin<Project> {
 
+
     @Override
     void apply(Project project) {
         println ' plugin started'
 
-        project.extensions.create('pluginParameters', PluginExtension)
+        // create extension to get external cify parameters
+        project.extensions.create('cify', PluginExtension)
 
-        project.task('myTask', type: PluginTask)
+        // print out plugin parameters, if possible
+        println 'from plugin -  cify threads ='+ project.cify.threads
 
-        println 'plugin parameters - parameter threads ='+ project.pluginParameters.threads
-
-        List tasksPool = []
-
-
-        for (def i = 0; i< project.pluginParameters.threads ; i++) {
-            tasksPool.add(project.tasks['myTask'])
-        }
-
-        GParsPool.withPool( project.pluginParameters.threads ) {
-
-            tasksPool.eachParallel { PluginTask task ->
-
-                try {
-                    task.myTask()
-                } catch (all) {
-                    println ('FAILED '+ all)
-                }
-            }
-        }
+        // define plugin task
+        project.task('run', type: PluginTask)
 
         println ' plugin finished'
     }
+
+
 }

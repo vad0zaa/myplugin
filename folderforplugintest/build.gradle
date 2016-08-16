@@ -1,5 +1,5 @@
 
-apply plugin: 'test.vadim.gradleplugin'
+
 
 buildscript {
     repositories {
@@ -16,30 +16,24 @@ buildscript {
     }
 }
 
+/*
 repositories {
     jcenter()
     mavenCentral()
     mavenLocal()
 }
+*/
+
+
+apply plugin: 'test.vadim.gradleplugin'
 
 
 
-
-
-
-
-dependencies {
-   // testCompile group: 'junit', name: 'junit', version: '4.11'
-   //  testCompile group: 'test.vadim',name:'myplugin', version:'1.0'
+cify{
+    threads = 3
+    glue = 'path to features'
 }
 
-pluginParameters  {
-    parameterOne = 'param nr1 from gradle script'
-    parameterTwo = 'param nr2 from gradle script'
-    threads = 1
-}
-
-/*
-task runMyTask(type: test.vadim.gradle.PluginTask) {
+/*task runTask(type: test.vadim.gradle.PluginTask) {
     println("running plugin task...")
 }*/

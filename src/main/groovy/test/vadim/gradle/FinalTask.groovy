@@ -13,11 +13,16 @@ class FinalTask extends DefaultTask {
 
     @TaskAction
     startFinalTaskAction(){
-
     println 'FinalTask ' + taskName + ' started.. ' + new Date().toString()
 
     // do some work here
-    try{  Thread.sleep(2000)   }    catch (Exception e){}
+    try{
+        // printout plugin external parameter glue
+        println 'taskName='+ taskName + ' ,param glue=' + project.cify.glue
+
+        Thread.sleep(3000)
+    }
+    catch (Exception e){}
 
     println 'FinalTask ' + taskName + ' finished.. ' + new Date().toString()
 }

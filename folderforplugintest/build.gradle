@@ -31,7 +31,7 @@ apply plugin: 'test.vadim.gradleplugin'
 
 cify{
     threads = 3
-    glue = 'path to features'
+    glue = ' path to features dir '
 }
 
 /*task runTask(type: test.vadim.gradle.PluginTask) {

@@ -13,7 +13,7 @@ public class PluginTask extends DefaultTask {
     def goAhead() {
 
        println '..PluginTask  started...'
-       println '...PluginTask - cify threads : ' + project.cify.threads
+       println '..PluginTask - cify threads : ' + project.cify.threads
 
        // create features list
        List features = []

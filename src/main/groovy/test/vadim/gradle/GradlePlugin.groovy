@@ -17,9 +17,6 @@ public class GradlePlugin implements Plugin<Project> {
         // create extension to get external cify parameters
         project.extensions.create('cify', PluginExtension)
 
-        // print out plugin parameters, if possible
-        println 'from plugin -  cify threads ='+ project.cify.threads
-
         // define plugin task
         project.task('run', type: PluginTask)
 
